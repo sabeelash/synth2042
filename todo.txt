@@ -1,0 +1,39 @@
+oscillator:
+    - enable/disable (1 toggle)
+    - type of wavetable (4 option selectors)
+    - unison (4 option selectors?)
+    - fine pitch
+    - coarse pitch
+    - other (?)
+
+amp:
+    - attack
+    - release
+    - sustain
+    - decay
+    - gain
+
+filter:
+    - type of filter (lp12, lp24, hp12, hp24, bp12)
+    - attack
+    - release
+    - sustain
+    - decay
+
+lfo:
+    - type
+    - select destination
+    - speed
+    - amplitude
+
+effects:
+    - reverb
+    - chorus
+    - delay
+    - distortion
+
+MIDI:
+    - AudioKeys
+
+preset system:
+    - recall presets

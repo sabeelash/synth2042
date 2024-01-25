@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Synthesizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Online Synthesizer</h1>
+
+    <br>
+    <label for="cnote">Play Note:</label>
+    <button id=cnote>Play</button>
+
+    <br>
+    <br>
+    <br>
+
+    <h2>Oscillator 1</h2>
+    <br>
+    <label for="volumeControl">Volume:</label>
+    <input type="range" id="volumeControl" min="-60" max="0" value="-12">
+    <br>
+    <label for="wavetableSelect">Wavetable Type:</label>
+    <select id="wavetableSelect">
+        <option value="sine">Sine</option>
+        <option value="square">Square</option>
+        <option value="triangle">Triangle</option>
+        <option value="sawtooth">Sawtooth</option>
+    </select>
+    <br>
+    <label for="detuneControl">Detune:</label>
+    <input type="range" id="detuneControl" min="-100" max="100" value="0">
+    <br>
+    <label for="pitchControl">Pitch Adjustment:</label>
+    <input type="range" id="pitchControl" min="-12" max="12" value="0">
+
+    <br>
+    <br>
+    <br>
+
+    <h2>Oscillator 2</h2>
+    <label for="volumeControl2">Volume:</label>
+    <input type="range" id="volumeControl2" min="-60" max="0" value="-12">
+
+    <br>
+    <label for="wavetableSelect2">Wavetable Type:</label>
+    <select id="wavetableSelect2">
+        <option value="sine">Sine</option>
+        <option value="square">Square</option>
+        <option value="triangle">Triangle</option>
+        <option value="sawtooth">Sawtooth</option>
+        <!-- Add other wavetable types as needed -->
+    </select>
+
+    <br>
+    <label for="detuneControl2">Detune:</label>
+    <input type="range" id="detuneControl2" min="-100" max="100" value="0">
+    <br>
+    <label for="pitchControl2">Pitch Adjustment:</label>
+    <input type="range" id="pitchControl2" min="-12" max="12" value="0">
+    <br>
+    <label for="polyphonyControl">Max Polyphony:</label>
+    <input type="range" id="polyphonyControl" min="1" max="6" value="4">
+
+    <br>
+    <br>
+    <br>
+
+    <h2>Amp ADSR</h2>
+    <label for="attackControl">Attack:</label>
+    <input type="range" id="attackControl" min="0" max="2" step="0.01" value="0.1">
+    <br>
+    <label for="decayControl">Decay:</label>
+    <input type="range" id="decayControl" min="0" max="2" step="0.01" value="0">
+    <br>
+    <label for="sustainControl">Sustain:</label>
+    <input type="range" id="sustainControl" min="0" max="1" step="0.01" value="0">
+    <br>
+    <label for="releaseControl">Release:</label>
+    <input type="range" id="releaseControl" min="0" max="5" step="0.01" value="0">
+
+    <br>
+    <br>
+    <br>
+
+    <h2>Filter</h2>
+    <label for="filterType">Filter Type:</label>
+    <select id="filterType">
+        <option value="lowpass">Lowpass</option>
+        <option value="highpass">Highpass</option>
+        <option value="bandpass">Bandpass</option>
+    </select>
+    <br>
+    <label for="filterSlope">Filter Slope:</label>
+    <select id="filterSlope">
+        <option value="-12">-12 dB/Octave</option>
+        <option value="-24">-24 dB/Octave</option>
+        <option value="-48">-48 dB/Octave</option>
+    </select>
+    <br>
+    <label for="filterToggle">Enable Filter:</label>
+    <input type="checkbox" id="filterToggle">
+    <br>
+    <label for="cutoffControl">Filter Cutoff:</label>
+    <input type="range" id="cutoffControl" min="0" max="22000" value="22000">
+    <br>
+    <label for="resonanceControl">Filter Resonance:</label>
+    <input type="range" id="resonanceControl" min="0" max="7" value="0" step="0.2">
+
+    <br>
+    <br>
+    <br>
+
+    <h2>LFO</h2>
+    <label for="lfoToggle">Toggle LFO:</label>
+    <input type="checkbox" id="lfoToggle">
+    <br>
+    <label for="lfoType">LFO Type:</label>
+    <select id="lfoType">
+        <option value="sine">Sine</option>
+        <option value="square">Square</option>
+        <option value="triangle">Triangle</option>
+        <option value="sawtooth">Sawtooth</option>
+    </select>
+    <br>
+    <label for="amplitudeControl">LFO Amplitude:</label>
+    <input type="range" id="amplitudeControl" min="0" max="1" value="0" step="0.01">
+    <br>
+    <label for="assignLFO">Assign LFO to: </label>
+    <select id="assignLFO">
+        <option value="osc1vol">Oscillator 1 Volume</option>
+        <option value="osc1detune">Oscillator 1 Detune</option>
+        <option value="osc1pitch">Oscillator 1 Pitch</option>
+        <option value="osc2vol">Oscillator 2 Volume</option>
+        <option value="osc2detune">Oscillator 2 Detune</option>
+        <option value="osc2pitch">Oscillator 2 Pitch</option>
+        <option value="filterCutoff">Filter Cutoff</option>
+        <option value="filterReso">Filter Resonance</option>
+    </select>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+<script src="audiokeys.js"></script>
+<script src="script.js"></script> <!-- Your JavaScript file -->
+
+
+</body>
+</html>
