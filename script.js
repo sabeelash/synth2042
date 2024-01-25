@@ -219,7 +219,7 @@ document.getElementById('assignLFO').addEventListener('change', function() {
         lfo1.max = 100;
         lfo1.min = -100;
         lfo1.disconnect()
-        lfo1.connect(synth1.detune);
+        lfo1.connect(synth1.detune.value);
         console.log(this.value)
     }
     else if (this.value === 'osc1pitch') {
