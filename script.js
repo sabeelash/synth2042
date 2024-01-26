@@ -12,6 +12,14 @@ synth1.set({
     }
 });
 
+document.getElementById('toggleOsc1').addEventListener('change', function() {
+    if (this.checked) {
+        synth1.toDestination();
+    } else {
+        synth1.disconnect();
+    }
+});
+
 document.getElementById('volumeControl').addEventListener('input', function() {
     if (this.value === -145){
         synth1.volume.value = -Infinity;
@@ -33,16 +41,7 @@ document.getElementById('detuneControl').addEventListener('input', function() {
     synth1.set({ detune: this.value });
 });
 
-function startAdjNoteSynth1(note) {
-    const pitchAdjustment = parseInt(document.getElementById('pitchControl').value);
-    const frequency = Tone.Frequency(note).transpose(pitchAdjustment);
-    synth1.triggerAttack(frequency);
-}
 
-
-
-// ----------------------------------------------------------------------------------------------------
-// ------------------
 // ----------------------------------------------------------------------------------------------------
 
 
@@ -50,8 +49,9 @@ function startAdjNoteSynth1(note) {
 // OSC 2
 // ----------------------------------------------------------------------------------------------------
 
-var synth2 = new Tone.PolySynth().toDestination();
-synth2.volume.value = -12
+var synth2 = new Tone.PolySynth();
+synth2.volume.value = -Infinity;
+synth2.disconnect();
 
 synth2.set({
     oscillator: {
@@ -59,6 +59,19 @@ synth2.set({
     }
 });
 
+firstTime = true;
+
+document.getElementById('toggleOsc2').addEventListener('change', function() {
+    if (this.checked) {
+        if (firstTime === true){
+            synth2.volume.value = -12;
+            firstTime = false;
+        }
+        synth2.toDestination();
+    } else {
+        synth2.disconnect();
+    }
+});
 
 document.getElementById('volumeControl2').addEventListener('input', function() {
     if (this.value === -145){
@@ -81,26 +94,27 @@ document.getElementById('detuneControl2').addEventListener('input', function() {
     synth2.set({ detune: this.value });
 });
 
-// function playAdjustedNoteSynth2(note, duration) {
-//     const pitchAdjustment = parseInt(document.getElementById('pitchControl').value);
-//     const frequency = Tone.Frequency(note).transpose(pitchAdjustment);
-//     synth2.triggerAttackRelease(frequency, duration);
-// }
-
-function startAdjNoteSynth2(note) {
-    const pitchAdjustment = parseInt(document.getElementById('pitchControl2').value);
-    const frequency = Tone.Frequency(note).transpose(pitchAdjustment);
-    synth2.triggerAttack(frequency);
-}
-
-// ----------------------------------------------------------------------------------------------------
-// ------------------
 // ----------------------------------------------------------------------------------------------------
 
 
 // ----------------------------------------------------------------------------------------------------
 // BOTH
 // ----------------------------------------------------------------------------------------------------
+
+// DEFAULT VALUES -------------------------------
+synth1.set({ envelope: { attack: 0.01 } });
+synth2.set({ envelope: { attack: 0.01 } });
+
+synth1.set({ envelope: { decay: 0 } });
+synth2.set({ envelope: { decay: 0 } });
+
+synth1.set({ envelope: { sustain: 1 } });
+synth2.set({ envelope: { sustain: 1 } });
+
+synth1.set({ envelope: { release: 0.3 } });
+synth2.set({ envelope: { release: 0.3 } });
+
+// -----------------------------------------------
 
 document.getElementById('polyphonyControl').addEventListener('input', function() {
     synth1.maxPolyphony = parseInt(this.value);
@@ -121,13 +135,11 @@ document.getElementById('decayControl').addEventListener('input', function() {
 document.getElementById('sustainControl').addEventListener('input', function() {
     synth1.set({ envelope: { sustain: parseFloat(this.value) } });
     synth2.set({ envelope: { sustain: parseFloat(this.value) } });
-    console.log("Sustain:", this.value)
 });
 
 document.getElementById('releaseControl').addEventListener('input', function() {
     synth1.set({ envelope: { release: parseFloat(this.value) } });
     synth2.set({ envelope: { release: parseFloat(this.value) } });
-    console.log("Release:", this.value)
 });
 
 
@@ -163,24 +175,23 @@ document.getElementById('resonanceControl').addEventListener('input', function()
 document.getElementById('filterToggle').addEventListener('change', function(e) {
     if (this.checked) {
         synth1.disconnect();
-        synth2.disconnect();
+        // synth2.disconnect();
         synth1.connect(mainFilter);
-        synth2.connect(mainFilter);
+        // synth2.connect(mainFilter);
         mainFilter.toDestination();
         console.log("check")
     }
     else {
         synth1.disconnect(mainFilter);
-        synth2.disconnect(mainFilter);
+        // synth2.disconnect(mainFilter);
         synth1.toDestination();
-        synth2.toDestination();
+        // synth2.toDestination();
         console.log("uncheck")
     }
 });
 
 // ----------------------------------------------------------------------------------------------------
-// ---------------------
-// ----------------------------------------------------------------------------------------------------
+
 
 // ----------------------------------------------------------------------------------------------------
 // LFO
@@ -189,9 +200,6 @@ document.getElementById('filterToggle').addEventListener('change', function(e) {
 const lfo1 = new Tone.LFO(0.5, -144, 0);
 
 lfo1.amplitude.value = 0;
-lfo1.connect(synth1.volume);
-lfo1.connect(synth2.volume);
-lfo1.start();
 
 document.getElementById('lfoToggle').addEventListener('change', function(e) {
     if (this.checked) {
@@ -261,9 +269,11 @@ document.getElementById('assignLFO').addEventListener('change', function() {
 });
 
 // ----------------------------------------------------------------------------------------------------
-// ---------------------
-// ----------------------------------------------------------------------------------------------------
 
+
+// ----------------------------------------------------------------------------------------------------
+// REVERB
+// ----------------------------------------------------------------------------------------------------
 const reverb = new Tone.Reverb(2);
 
 document.getElementById('reverbToggle').addEventListener('change', function() {
@@ -289,8 +299,115 @@ document.getElementById('reverbWet').addEventListener('input', function() {
     reverb.wet.value = parseFloat(this.value);
 });
 
+// ----------------------------------------------------------------------------------------------------
 
 
+// ----------------------------------------------------------------------------------------------------
+// CHORUS
+// ----------------------------------------------------------------------------------------------------
+
+const chorus = new Tone.Chorus(1.5, 2.5, 0.7);
+synth1.connect(chorus);
+synth2.connect(chorus);
+
+// Initial state of the chorus effect
+chorus.wet.value = 0;
+
+document.getElementById('chorusFrequency').addEventListener('input', function() {
+    chorus.frequency.value = parseFloat(this.value);
+});
+
+document.getElementById('chorusDelayTime').addEventListener('input', function() {
+    chorus.delayTime = parseFloat(this.value);
+});
+
+document.getElementById('chorusDepth').addEventListener('input', function() {
+    chorus.depth = parseFloat(this.value);
+});
+
+document.getElementById('chorusWet').addEventListener('input', function() {
+    chorus.wet.value = parseFloat(this.value);
+});
+
+document.getElementById('chorusToggle').addEventListener('change', function() {
+    if (this.checked) {
+        synth1.connect(chorus);
+        synth2.connect(chorus);
+        chorus.toDestination();
+    } else {
+        synth1.disconnect(chorus);
+        synth2.disconnect(chorus);
+    }
+});
+
+// ----------------------------------------------------------------------------------------------------
+
+
+// ----------------------------------------------------------------------------------------------------
+// FEEDBACK DELAY
+// ----------------------------------------------------------------------------------------------------
+
+const feedbackDelay = new Tone.FeedbackDelay("0.25", 0.5);
+
+// Start with the delay effect active
+feedbackDelay.wet.value = 0;
+
+document.getElementById('delayToggle').addEventListener('change', function() {
+    if (this.checked) {
+        synth1.connect(feedbackDelay);
+        synth2.connect(feedbackDelay);
+        feedbackDelay.toDestination();
+    } else {
+        synth1.disconnect(feedbackDelay);
+        synth2.disconnect(feedbackDelay);
+    }
+});
+
+document.getElementById('delayTime').addEventListener('input', function() {
+    feedbackDelay.delayTime.value = parseFloat(this.value);
+});
+
+document.getElementById('feedback').addEventListener('input', function() {
+    feedbackDelay.feedback.value = parseFloat(this.value);
+});
+
+document.getElementById('delayWet').addEventListener('input', function() {
+    feedbackDelay.wet.value = parseFloat(this.value);
+});
+
+
+// ----------------------------------------------------------------------------------------------------
+
+
+
+// ----------------------------------------------------------------------------------------------------
+// DISTORTION
+// ----------------------------------------------------------------------------------------------------
+
+const distortion = new Tone.Distortion(0.5);
+// Set the initial wet level of the distortion
+distortion.wet.value = 0;
+
+document.getElementById('distortionToggle').addEventListener('change', function() {
+    if (this.checked) {
+        synth1.connect(distortion);
+        synth2.connect(distortion);
+        distortion.toDestination();
+    } else {
+        synth1.disconnect(distortion);
+        synth2.disconnect(distortion);
+    }
+});
+
+document.getElementById('distortionAmount').addEventListener('input', function() {
+    distortion.distortion = parseFloat(this.value);
+});
+
+document.getElementById('distortionWet').addEventListener('input', function() {
+    distortion.wet.value = parseFloat(this.value);
+});
+
+// ----------------------------------------------------------------------------------------------------
 
 
 let audioContextStarted = false;
@@ -308,9 +425,7 @@ document.getElementById('cnote').addEventListener('click', async () => {
 
 
 
-
-
-const limiter = new Tone.Limiter(-6); // Threshold at -6 dB
+const limiter = new Tone.Limiter(-1); // Threshold at -1 dB
 synth1.connect(limiter);
 synth2.connect(limiter);
 limiter.toDestination();
