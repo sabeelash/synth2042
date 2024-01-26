@@ -13,6 +13,9 @@ synth1.set({
 });
 
 document.getElementById('volumeControl').addEventListener('input', function() {
+    if (this.value === -145){
+        synth1.volume.value = -Infinity;
+    }
     synth1.volume.value = parseFloat(this.value);
 });
 
@@ -56,7 +59,11 @@ synth2.set({
     }
 });
 
+
 document.getElementById('volumeControl2').addEventListener('input', function() {
+    if (this.value === -145){
+        synth2.volume.value = -Infinity;
+    }
     synth2.volume.value = parseFloat(this.value);
 });
 
@@ -138,8 +145,6 @@ document.getElementById('releaseControl').addEventListener('input', function() {
 const mainFilter = new Tone.Filter(20000, "lowpass", -12);
 mainFilter.Q.value = 0;
 
-
-
 document.getElementById('filterType').addEventListener('change', function() {
     mainFilter.type = this.value;
 });
@@ -181,12 +186,12 @@ document.getElementById('filterToggle').addEventListener('change', function(e) {
 // LFO
 // ----------------------------------------------------------------------------------------------------
 
-const lfo1 = new Tone.LFO({
-    frequency: 0.5,
-    type: 'sine',
-    min: 500,
-    max: 1500
-})
+const lfo1 = new Tone.LFO(0.5, -144, 0);
+
+lfo1.amplitude.value = 0;
+lfo1.connect(synth1.volume);
+lfo1.connect(synth2.volume);
+lfo1.start();
 
 document.getElementById('lfoToggle').addEventListener('change', function(e) {
     if (this.checked) {
@@ -195,80 +200,98 @@ document.getElementById('lfoToggle').addEventListener('change', function(e) {
     }
     else {
         lfo1.stop();
+        lfo1.disconnect();
         console.log("uncheck")
     }
 });
-
 document.getElementById('lfoType').addEventListener('change', function() {
     lfo1.type = this.value;
 });
 
 document.getElementById('amplitudeControl').addEventListener('input', function() {
-    lfo1.amplitude = (parseFloat(this.value));
+    lfo1.amplitude.value = parseFloat(this.value);
+});
+
+document.getElementById('lfospeed').addEventListener('input', function() {
+    lfo1.frequency.value = parseFloat(this.value);
 });
 
 document.getElementById('assignLFO').addEventListener('change', function() {
-    if (this.value === 'osc1vol') {
-        lfo1.max = 0;
-        lfo1.min = -60;
+    if (this.value === 'bothOscVol') {
+        lfo1.max.value = 0;
+        lfo1.min.value = -144;
         lfo1.disconnect()
-        lfo1.connect(synth1.volume.value);
-        console.log(this.value)
+        lfo1.stop()
+        lfo1.connect(synth1.volume);
+        lfo1.connect(synth2.volume);
+        lfo1.start();
     }
-    else if (this.value === 'osc1detune') {
-        lfo1.max = 100;
-        lfo1.min = -100;
+    else if (this.value === 'osc1vol') {
+        lfo1.max.value = 0;
+        lfo1.min.value = -144;
         lfo1.disconnect()
-        lfo1.connect(synth1.detune.value);
-        console.log(this.value)
-    }
-    else if (this.value === 'osc1pitch') {
-        lfo1.max = 12;
-        lfo1.min = -12;
-        lfo1.disconnect()
-        lfo1.connect(synth1.detune);
-        console.log(this.value)
+        lfo1.stop()
+        lfo1.connect(synth1.volume);
+        lfo1.start();
     }
     else if (this.value === 'osc2vol') {
-        lfo1.max = 0;
-        lfo1.min = -60;
+        lfo1.max.value = 0;
+        lfo1.min.value = -144;
         lfo1.disconnect()
+        lfo1.stop();
         lfo1.connect(synth2.volume);
-        console.log(this.value)
-    }
-    else if (this.value === 'osc2detune') {
-        lfo1.max = 100;
-        lfo1.min = -100;
-        lfo1.disconnect()
-        lfo1.connect(synth2.detune);
-        console.log(this.value)
-    }
-    else if (this.value === 'osc2pitch') {
-        lfo1.max = 12;
-        lfo1.min = -12;
-        lfo1.disconnect()
-        lfo1.connect(synth2.detune);
-        console.log(this.value)
+        lfo1.start();
     }
     else if (this.value === 'filterCutoff') {
-        lfo1.max = 22000;
-        lfo1.min = 10;
-        lfo1.disconnect()
-        lfo1.connect(mainFilter.frequency.value)
-        console.log(this.value)
+        lfo1.max = 20000;
+        lfo1.min = 20;
+        lfo1.disconnect();
+        lfo1.stop();
+        lfo1.connect(mainFilter.frequency);
+        lfo1.start();
     }
     else if (this.value === 'filterReso') {
         lfo1.max = 7;
         lfo1.min = 0;
         lfo1.disconnect()
-        lfo1.connect(mainFilter.Q.value)
-        console.log(this.value)
+        lfo1.stop();
+        lfo1.connect(mainFilter.Q).start();
+        lfo1.start();
     }
 });
 
 // ----------------------------------------------------------------------------------------------------
 // ---------------------
 // ----------------------------------------------------------------------------------------------------
+
+const reverb = new Tone.Reverb(2);
+
+document.getElementById('reverbToggle').addEventListener('change', function() {
+    if (this.checked) {
+        synth1.connect(reverb);
+        synth2.connect(reverb);
+        reverb.toDestination();
+    } else {
+        synth1.disconnect(reverb);
+        synth2.disconnect(reverb);
+    }
+});
+
+document.getElementById('reverbDecay').addEventListener('input', function() {
+    reverb.decay = parseFloat(this.value);
+});
+
+document.getElementById('reverbPreDelay').addEventListener('input', function() {
+    reverb.preDelay = parseFloat(this.value);
+});
+
+document.getElementById('reverbWet').addEventListener('input', function() {
+    reverb.wet.value = parseFloat(this.value);
+});
+
+
+
+
 
 let audioContextStarted = false;
 
@@ -282,6 +305,15 @@ document.getElementById('cnote').addEventListener('click', async () => {
     synth1.triggerAttackRelease("C4", 1);
     synth2.triggerAttackRelease("C4", 1);
 });
+
+
+
+
+
+const limiter = new Tone.Limiter(-6); // Threshold at -6 dB
+synth1.connect(limiter);
+synth2.connect(limiter);
+limiter.toDestination();
 
 
 const keyboard = new AudioKeys();

@@ -18,7 +18,7 @@
     <h2>Oscillator 1</h2>
     <br>
     <label for="volumeControl">Volume:</label>
-    <input type="range" id="volumeControl" min="-60" max="0" value="-12">
+    <input type="range" id="volumeControl" min="-145" max="0" value="-12">
     <br>
     <label for="wavetableSelect">Wavetable Type:</label>
     <select id="wavetableSelect">
@@ -128,17 +128,34 @@
     <br>
     <label for="assignLFO">Assign LFO to: </label>
     <select id="assignLFO">
+        <option value="bothOscVol">Volume of both Oscs</option>
         <option value="osc1vol">Oscillator 1 Volume</option>
-        <option value="osc1detune">Oscillator 1 Detune</option>
-        <option value="osc1pitch">Oscillator 1 Pitch</option>
         <option value="osc2vol">Oscillator 2 Volume</option>
-        <option value="osc2detune">Oscillator 2 Detune</option>
-        <option value="osc2pitch">Oscillator 2 Pitch</option>
         <option value="filterCutoff">Filter Cutoff</option>
         <option value="filterReso">Filter Resonance</option>
     </select>
+    <br>
+    <label for="lfospeed">LFO Speed:</label>
+    <input type="range" id="lfospeed" min="0.1" max="20" value="0.5" step="0.1">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <br>
+    <br>
+    <br>
+
+    <h2>Reverb</h2>
+    <label for="reverbToggle">Enable Reverb:</label>
+    <input type="checkbox" id="reverbToggle">
+    <br>
+    <label for="reverbDecay">Reverb Decay:</label>
+    <input type="range" id="reverbDecay" min="0.1" max="25" value="2" step="0.1">
+    <br>
+    <label for="reverbPreDelay">Reverb PreDelay:</label>
+    <input type="range" id="reverbPreDelay" min="0" max="3" value="0.01" step="0.01">
+    <br>
+    <label for="reverbWet">Reverb Wet:</label>
+    <input type="range" id="reverbWet" min="0" max="1" value="0.2" step="0.01">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
 <script src="audiokeys.js"></script>
 <script src="script.js"></script> <!-- Your JavaScript file -->
 
