@@ -15,6 +15,7 @@ synth1.set({
 document.getElementById('toggleOsc1').addEventListener('change', function() {
     if (this.checked) {
         synth1.toDestination();
+        console.log("check")
     } else {
         synth1.disconnect();
     }
@@ -413,15 +414,15 @@ document.getElementById('distortionWet').addEventListener('input', function() {
 let audioContextStarted = false;
 
 // Event listener for playing a note
-document.getElementById('cnote').addEventListener('click', async () => {
-    if (!audioContextStarted) {
-        await Tone.start();
-        console.log('Audio ready');
-        audioContextStarted = true;
-    }
-    synth1.triggerAttackRelease("C4", 1);
-    synth2.triggerAttackRelease("C4", 1);
-});
+// document.getElementById('cnote').addEventListener('click', async () => {
+//     if (!audioContextStarted) {
+//         await Tone.start();
+//         console.log('Audio ready');
+//         audioContextStarted = true;
+//     }
+//     synth1.triggerAttackRelease("C4", 1);
+//     synth2.triggerAttackRelease("C4", 1);
+// });
 
 
 

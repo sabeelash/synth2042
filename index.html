@@ -1,226 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Online Synthesizer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-</head>
+    <title>synth2042</title>
 <body>
-    <h1>Online Synthesizer</h1>
+<section class="grid">
 
-    <br>
-    <label for="cnote">Play Note:</label>
-    <button id=cnote>Play</button>
+    <div class="osc1">
+        <h2>Oscillator 1</h2>
+        <label for="toggleOsc1">Toggle Osc 1:</label>
+        <input type="checkbox" id="toggleOsc1" checked>
+        <br>
+        <label for="volumeControl">Volume:</label>
+        <input type="range" id="volumeControl" min="-145" max="0" value="-12">
+        <br>
+        <label for="wavetableSelect">Wavetable Type:</label>
+        <select id="wavetableSelect">
+            <option value="sine">Sine</option>
+            <option value="square">Square</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth">Sawtooth</option>
+        </select>
+        <br>
+        <label for="detuneControl">Detune:</label>
+        <input type="range" id="detuneControl" min="-100" max="100" value="0">
+        <br>
+        <label for="pitchControl">Pitch Adjustment:</label>
+        <input type="range" id="pitchControl" min="-12" max="12" value="0">
+    </div>
 
-    <br>
-    <br>
-    <br>
+    <div class="osc2">
+        <h2>Oscillator 2</h2>
+        <label for="toggleOsc2">Toggle Osc 2:</label>
+        <input type="checkbox" id="toggleOsc2">
+        <br>
+        <label for="volumeControl2">Volume:</label>
+        <input type="range" id="volumeControl2" min="-60" max="0" value="-12">
 
-    <h2>Oscillator 1</h2>
-    <label for="toggleOsc1">Toggle Osc 1:</label>
-    <input type="checkbox" id="toggleOsc1" checked>
-    <br>
-    <label for="volumeControl">Volume:</label>
-    <input type="range" id="volumeControl" min="-145" max="0" value="-12">
-    <br>
-    <label for="wavetableSelect">Wavetable Type:</label>
-    <select id="wavetableSelect">
-        <option value="sine">Sine</option>
-        <option value="square">Square</option>
-        <option value="triangle">Triangle</option>
-        <option value="sawtooth">Sawtooth</option>
-    </select>
-    <br>
-    <label for="detuneControl">Detune:</label>
-    <input type="range" id="detuneControl" min="-100" max="100" value="0">
-    <br>
-    <label for="pitchControl">Pitch Adjustment:</label>
-    <input type="range" id="pitchControl" min="-12" max="12" value="0">
+        <br>
+        <label for="wavetableSelect2">Wavetable Type:</label>
+        <select id="wavetableSelect2">
+            <option value="sine">Sine</option>
+            <option value="square">Square</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth">Sawtooth</option>
+            <!-- Add other wavetable types as needed -->
+        </select>
 
-    <br>
-    <br>
-    <br>
+        <br>
+        <label for="detuneControl2">Detune:</label>
+        <input type="range" id="detuneControl2" min="-100" max="100" value="0">
+        <br>
+        <label for="pitchControl2">Pitch Adjustment:</label>
+        <input type="range" id="pitchControl2" min="-12" max="12" value="0">
+    </div>
 
-    <h2>Oscillator 2</h2>
-    <label for="toggleOsc2">Toggle Osc 2:</label>
-    <input type="checkbox" id="toggleOsc2">
-    <br>
-    <label for="volumeControl2">Volume:</label>
-    <input type="range" id="volumeControl2" min="-60" max="0" value="-12">
+    <div class="adsr">
+        <h2>ADSR</h2>
+        <label for="attackControl">Attack:</label>
+        <input type="range" id="attackControl" min="0" max="2" step="0.01" value="0.01">
+        <br>
+        <label for="decayControl">Decay:</label>
+        <input type="range" id="decayControl" min="0" max="2" step="0.01" value="0">
+        <br>
+        <label for="sustainControl">Sustain:</label>
+        <input type="range" id="sustainControl" min="0" max="1" step="0.01" value="1">
+        <br>
+        <label for="releaseControl">Release:</label>
+        <input type="range" id="releaseControl" min="0" max="10" step="0.01" value="0.3">
+    </div>
 
-    <br>
-    <label for="wavetableSelect2">Wavetable Type:</label>
-    <select id="wavetableSelect2">
-        <option value="sine">Sine</option>
-        <option value="square">Square</option>
-        <option value="triangle">Triangle</option>
-        <option value="sawtooth">Sawtooth</option>
-        <!-- Add other wavetable types as needed -->
-    </select>
+    <div class="filter">
+        <h2>Filter</h2>
+        <label for="filterType">Filter Type:</label>
+        <select id="filterType">
+            <option value="lowpass">Lowpass</option>
+            <option value="highpass">Highpass</option>
+            <option value="bandpass">Bandpass</option>
+        </select>
+        <br>
+        <label for="filterSlope">Filter Slope:</label>
+        <select id="filterSlope">
+            <option value="-12">-12 dB/Octave</option>
+            <option value="-24">-24 dB/Octave</option>
+            <option value="-48">-48 dB/Octave</option>
+        </select>
+        <br>
+        <label for="filterToggle">Enable Filter:</label>
+        <input type="checkbox" id="filterToggle">
+        <br>
+        <label for="cutoffControl">Filter Cutoff:</label>
+        <input type="range" id="cutoffControl" min="0" max="22000" value="22000">
+        <br>
+        <label for="resonanceControl">Filter Resonance:</label>
+        <input type="range" id="resonanceControl" min="0" max="7" value="0" step="0.2">
+    </div>
 
-    <br>
-    <label for="detuneControl2">Detune:</label>
-    <input type="range" id="detuneControl2" min="-100" max="100" value="0">
-    <br>
-    <label for="pitchControl2">Pitch Adjustment:</label>
-    <input type="range" id="pitchControl2" min="-12" max="12" value="0">
+    <div class="lfo">
+        <h2>LFO</h2>
+        <label for="lfoToggle">Toggle LFO:</label>
+        <input type="checkbox" id="lfoToggle">
+        <br>
+        <label for="lfoType">LFO Type:</label>
+        <select id="lfoType">
+            <option value="sine">Sine</option>
+            <option value="square">Square</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth">Sawtooth</option>
+        </select>
+        <br>
+        <label for="amplitudeControl">LFO Amplitude:</label>
+        <input type="range" id="amplitudeControl" min="0" max="1" value="0" step="0.01">
+        <br>
+        <label for="assignLFO">Assign LFO to: </label>
+        <select id="assignLFO">
+            <option value="bothOscVol">Volume of both Oscs</option>
+            <option value="osc1vol">Oscillator 1 Volume</option>
+            <option value="osc2vol">Oscillator 2 Volume</option>
+            <option value="filterCutoff">Filter Cutoff</option>
+            <option value="filterReso">Filter Resonance</option>
+        </select>
+        <br>
+        <label for="lfospeed">LFO Speed:</label>
+        <input type="range" id="lfospeed" min="0.1" max="20" value="0.5" step="0.1">
+    </div>
 
-    <br>
-    <br>
-    <br>
-
-    <label for="polyphonyControl">Max Polyphony:</label>
-    <input type="range" id="polyphonyControl" min="1" max="6" value="4">
-
-    <br>
-    <br>
-    <br>
-
-    <h2>Amp ADSR</h2>
-    <label for="attackControl">Attack:</label>
-    <input type="range" id="attackControl" min="0" max="2" step="0.01" value="0.01">
-    <br>
-    <label for="decayControl">Decay:</label>
-    <input type="range" id="decayControl" min="0" max="2" step="0.01" value="0">
-    <br>
-    <label for="sustainControl">Sustain:</label>
-    <input type="range" id="sustainControl" min="0" max="1" step="0.01" value="1">
-    <br>
-    <label for="releaseControl">Release:</label>
-    <input type="range" id="releaseControl" min="0" max="10" step="0.01" value="0.3">
-
-    <br>
-    <br>
-    <br>
-
-    <h2>Filter</h2>
-    <label for="filterType">Filter Type:</label>
-    <select id="filterType">
-        <option value="lowpass">Lowpass</option>
-        <option value="highpass">Highpass</option>
-        <option value="bandpass">Bandpass</option>
-    </select>
-    <br>
-    <label for="filterSlope">Filter Slope:</label>
-    <select id="filterSlope">
-        <option value="-12">-12 dB/Octave</option>
-        <option value="-24">-24 dB/Octave</option>
-        <option value="-48">-48 dB/Octave</option>
-    </select>
-    <br>
-    <label for="filterToggle">Enable Filter:</label>
-    <input type="checkbox" id="filterToggle">
-    <br>
-    <label for="cutoffControl">Filter Cutoff:</label>
-    <input type="range" id="cutoffControl" min="0" max="22000" value="22000">
-    <br>
-    <label for="resonanceControl">Filter Resonance:</label>
-    <input type="range" id="resonanceControl" min="0" max="7" value="0" step="0.2">
-
-    <br>
-    <br>
-    <br>
-
-    <h2>LFO</h2>
-    <label for="lfoToggle">Toggle LFO:</label>
-    <input type="checkbox" id="lfoToggle">
-    <br>
-    <label for="lfoType">LFO Type:</label>
-    <select id="lfoType">
-        <option value="sine">Sine</option>
-        <option value="square">Square</option>
-        <option value="triangle">Triangle</option>
-        <option value="sawtooth">Sawtooth</option>
-    </select>
-    <br>
-    <label for="amplitudeControl">LFO Amplitude:</label>
-    <input type="range" id="amplitudeControl" min="0" max="1" value="0" step="0.01">
-    <br>
-    <label for="assignLFO">Assign LFO to: </label>
-    <select id="assignLFO">
-        <option value="bothOscVol">Volume of both Oscs</option>
-        <option value="osc1vol">Oscillator 1 Volume</option>
-        <option value="osc2vol">Oscillator 2 Volume</option>
-        <option value="filterCutoff">Filter Cutoff</option>
-        <option value="filterReso">Filter Resonance</option>
-    </select>
-    <br>
-    <label for="lfospeed">LFO Speed:</label>
-    <input type="range" id="lfospeed" min="0.1" max="20" value="0.5" step="0.1">
-
-    <br>
-    <br>
-    <br>
-
-    <h2>Reverb</h2>
-    <label for="reverbToggle">Enable Reverb:</label>
-    <input type="checkbox" id="reverbToggle">
-    <br>
-    <label for="reverbDecay">Reverb Decay:</label>
-    <input type="range" id="reverbDecay" min="0.1" max="25" value="2" step="0.1">
-    <br>
-    <label for="reverbPreDelay">Reverb PreDelay:</label>
-    <input type="range" id="reverbPreDelay" min="0" max="3" value="0.01" step="0.01">
-    <br>
-    <label for="reverbWet">Reverb Wet:</label>
-    <input type="range" id="reverbWet" min="0" max="1" value="0.2" step="0.01">
-
-    <br>
-    <br>
-    <br>
-
-    <h2>Chorus</h2>
-    <label for="chorusToggle">Enable Chorus:</label>
-    <input type="checkbox" id="chorusToggle">
-    <br>
-    <label for="chorusFrequency">Chorus Frequency:</label>
-    <input type="range" id="chorusFrequency" min="0" max="10" value="1.5" step="0.1">
-    <br>
-    <label for="chorusDelayTime">Chorus Delay Time:</label>
-    <input type="range" id="chorusDelayTime" min="0" max="10" value="2.5" step="0.1">
-    <br>
-    <label for="chorusDepth">Chorus Depth:</label>
-    <input type="range" id="chorusDepth" min="0" max="1" value="0.7" step="0.01">
-    <br>
-    <label for="chorusWet">Chorus Wet:</label>
-    <input type="range" id="chorusWet" min="0" max="1" value="0.5" step="0.01">
-
-    <br>
-    <br>
-    <br>
-
-    <h2>Feedback Delay</h2>
-    <label for="delayToggle">Enable Feedback Delay:</label>
-    <input type="checkbox" id="delayToggle">
-    <br>
-    <label for="delayTime">Delay Time:</label>
-    <input type="range" id="delayTime" min="0" max="1" value="0.25" step="0.01">
-    <br>
-    <label for="feedback">Feedback:</label>
-    <input type="range" id="feedback" min="0" max="1" value="0.5" step="0.01">
-    <br>
-    <label for="delayWet">Wet:</label>
-    <input type="range" id="delayWet" min="0" max="1" value="0.5" step="0.01">
-
-    <br>
-    <br>
-    <br>
-
-    <h2>Distortion</h2>
-    <label for="distortionToggle">Enable Distortion:</label>
-    <input type="checkbox" id="distortionToggle">
-    <br>
-    <label for="distortionAmount">Distortion Amount:</label>
-    <input type="range" id="distortionAmount" min="0" max="1" value="0.5" step="0.01">
-    <br>
-    <label for="distortionWet">Distortion Wet:</label>
-    <input type="range" id="distortionWet" min="0" max="1" value="0.5" step="0.01">
+    <div class="reverb">
+        <h2>Reverb</h2>
+        <label for="reverbToggle">Enable Reverb:</label>
+        <input type="checkbox" id="reverbToggle">
+        <br>
+        <label for="reverbDecay">Reverb Decay:</label>
+        <input type="range" id="reverbDecay" min="0.1" max="25" value="2" step="0.1">
+        <br>
+        <label for="reverbPreDelay">Reverb PreDelay:</label>
+        <input type="range" id="reverbPreDelay" min="0" max="3" value="0.01" step="0.01">
+        <br>
+        <label for="reverbWet">Reverb Wet:</label>
+        <input type="range" id="reverbWet" min="0" max="1" value="0.2" step="0.01">
+    </div>
 
 
+    <div class="chorus">
+        <h2>Chorus</h2>
+        <label for="chorusToggle">Enable Chorus:</label>
+        <input type="checkbox" id="chorusToggle">
+        <br>
+        <label for="chorusFrequency">Chorus Frequency:</label>
+        <input type="range" id="chorusFrequency" min="0" max="10" value="1.5" step="0.1">
+        <br>
+        <label for="chorusDelayTime">Chorus Delay Time:</label>
+        <input type="range" id="chorusDelayTime" min="0" max="10" value="2.5" step="0.1">
+        <br>
+        <label for="chorusDepth">Chorus Depth:</label>
+        <input type="range" id="chorusDepth" min="0" max="1" value="0.7" step="0.01">
+        <br>
+        <label for="chorusWet">Chorus Wet:</label>
+        <input type="range" id="chorusWet" min="0" max="1" value="0.5" step="0.01">
+    </div>
+
+
+    <div class="delay">
+        <h2>Feedback Delay</h2>
+        <label for="delayToggle">Enable Feedback Delay:</label>
+        <input type="checkbox" id="delayToggle">
+        <br>
+        <label for="delayTime">Delay Time:</label>
+        <input type="range" id="delayTime" min="0" max="1" value="0.25" step="0.01">
+        <br>
+        <label for="feedback">Feedback:</label>
+        <input type="range" id="feedback" min="0" max="1" value="0.5" step="0.01">
+        <br>
+        <label for="delayWet">Wet:</label>
+        <input type="range" id="delayWet" min="0" max="1" value="0.5" step="0.01">
+    </div>
+
+    <div class="distortion">
+        <h2>Distortion</h2>
+        <label for="distortionToggle">Enable Distortion:</label>
+        <input type="checkbox" id="distortionToggle">
+        <br>
+        <label for="distortionAmount">Distortion Amount:</label>
+        <input type="range" id="distortionAmount" min="0" max="1" value="0.5" step="0.01">
+        <br>
+        <label for="distortionWet">Distortion Wet:</label>
+        <input type="range" id="distortionWet" min="0" max="1" value="0.5" step="0.01">
+    </div>
+
+    <div class="global">
+        <h2>Global</h2>
+        <label for="polyphonyControl">Max Polyphony:</label>
+        <input type="range" id="polyphonyControl" min="1" max="6" value="4">
+    </div>
+</section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
 <script src="audiokeys.js"></script>
-<script src="script.js"></script> <!-- Your JavaScript file -->
-
+<script src="script.js"></script>
 
 </body>
 </html>
