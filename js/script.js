@@ -172,7 +172,6 @@ document.getElementById('resonanceControl').addEventListener('input', function()
 });
 
 
-// Listen for changes in the toggle switch state
 document.getElementById('filterToggle').addEventListener('change', function(e) {
     if (this.checked) {
         synth1.disconnect();
@@ -276,6 +275,7 @@ document.getElementById('assignLFO').addEventListener('change', function() {
 // REVERB
 // ----------------------------------------------------------------------------------------------------
 const reverb = new Tone.Reverb(2);
+reverb.wet.value = 0;
 
 document.getElementById('reverbToggle').addEventListener('change', function() {
     if (this.checked) {
@@ -308,11 +308,19 @@ document.getElementById('reverbWet').addEventListener('input', function() {
 // ----------------------------------------------------------------------------------------------------
 
 const chorus = new Tone.Chorus(1.5, 2.5, 0.7);
-synth1.connect(chorus);
-synth2.connect(chorus);
 
-// Initial state of the chorus effect
 chorus.wet.value = 0;
+
+document.getElementById('chorusToggle').addEventListener('change', function() {
+    if (this.checked) {
+        synth1.connect(chorus);
+        synth2.connect(chorus);
+        chorus.toDestination();
+    } else {
+        synth1.disconnect(chorus);
+        synth2.disconnect(chorus);
+    }
+});
 
 document.getElementById('chorusFrequency').addEventListener('input', function() {
     chorus.frequency.value = parseFloat(this.value);
@@ -330,16 +338,7 @@ document.getElementById('chorusWet').addEventListener('input', function() {
     chorus.wet.value = parseFloat(this.value);
 });
 
-document.getElementById('chorusToggle').addEventListener('change', function() {
-    if (this.checked) {
-        synth1.connect(chorus);
-        synth2.connect(chorus);
-        chorus.toDestination();
-    } else {
-        synth1.disconnect(chorus);
-        synth2.disconnect(chorus);
-    }
-});
+
 
 // ----------------------------------------------------------------------------------------------------
 
@@ -349,8 +348,6 @@ document.getElementById('chorusToggle').addEventListener('change', function() {
 // ----------------------------------------------------------------------------------------------------
 
 const feedbackDelay = new Tone.FeedbackDelay("0.25", 0.5);
-
-// Start with the delay effect active
 feedbackDelay.wet.value = 0;
 
 document.getElementById('delayToggle').addEventListener('change', function() {
@@ -386,7 +383,6 @@ document.getElementById('delayWet').addEventListener('input', function() {
 // ----------------------------------------------------------------------------------------------------
 
 const distortion = new Tone.Distortion(0.5);
-// Set the initial wet level of the distortion
 distortion.wet.value = 0;
 
 document.getElementById('distortionToggle').addEventListener('change', function() {
@@ -413,19 +409,6 @@ document.getElementById('distortionWet').addEventListener('input', function() {
 
 let audioContextStarted = false;
 
-// Event listener for playing a note
-// document.getElementById('cnote').addEventListener('click', async () => {
-//     if (!audioContextStarted) {
-//         await Tone.start();
-//         console.log('Audio ready');
-//         audioContextStarted = true;
-//     }
-//     synth1.triggerAttackRelease("C4", 1);
-//     synth2.triggerAttackRelease("C4", 1);
-// });
-
-
-
 const limiter = new Tone.Limiter(-1); // Threshold at -1 dB
 synth1.connect(limiter);
 synth2.connect(limiter);
@@ -435,10 +418,12 @@ limiter.toDestination();
 const keyboard = new AudioKeys();
 
 keyboard.down(note => {
-    // Convert MIDI number to note name
+    if (!audioContextStarted) {
+        Tone.start();
+        console.log('Audio ready');
+        audioContextStarted = true;
+    }
     const noteName = Tone.Frequency(note.note, "midi").toNote();
-    // startAdjNoteSynth1(noteName);
-    // startAdjNoteSynth2(noteName);
     synth1.triggerAttack(noteName);
     synth2.triggerAttack(noteName);
 });
