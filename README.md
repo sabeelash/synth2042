@@ -16,9 +16,9 @@ LFOs are used to modulate various parameters of the sound at low frequencies, us
 
 Effects are used to further shape and enhance the sound:
 
-    - Distortion: Adds harmonic content by overdriving the sound, often resulting in a "gritty" or "fuzzy" texture.
-    - Chorus: Mixes the original signal with one or more delayed, modulated copies of itself, creating a shimmering, thickening effect that simulates multiple instruments playing in unison.
-    - Delay: Creates an echo effect by playing back the original signal after a short period of time, often with the option to feed the delayed signal back into the delay line to create a repeating, decaying echo.
-    - Reverb: Simulates the natural reverberations of a physical space, adding depth and ambiance to the sound, making it feel like it's in a room, hall, or other environment.
+ - Distortion: Adds harmonic content by overdriving the sound, often resulting in a "gritty" or "fuzzy" texture.
+ - Chorus: Mixes the original signal with one or more delayed, modulated copies of itself, creating a shimmering, thickening effect that simulates multiple instruments playing in unison.
+ - Delay: Creates an echo effect by playing back the original signal after a short period of time, often with the option to feed the delayed signal back into the delay line to create a repeating, decaying echo.
+ - Reverb: Simulates the natural reverberations of a physical space, adding depth and ambiance to the sound, making it feel like it's in a room, hall, or other environment.
 
 These components work together in a synthesizer to create a vast array of sounds, from the realistic emulation of acoustic instruments to otherworldly electronic textures. Each parameter provides a different aspect of control over the sound, allowing musicians and sound designers to sculpt their tones precisely. 
