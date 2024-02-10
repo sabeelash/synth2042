@@ -285,7 +285,7 @@ h2 {
     font-weight: 250;
     color: #88B4E9;
 }
-.fxbox input, .fxbox select {
+.fxbox input[type=range], .fxbox select {
     margin-top:8.5px;
     float: right;
     width: 58%;
@@ -344,8 +344,8 @@ h2 {
 
 
 /* Hide the default checkbox */
-.custom-checkbox input {
-    position: absolute;
+.custom-checkbox input[type='checkbox']{
+    position: fixed;
     opacity: 0;
     cursor: pointer;
     float: right;

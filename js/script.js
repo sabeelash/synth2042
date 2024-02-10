@@ -1,7 +1,8 @@
-
 // ----------------------------------------------------------------------------------------------------
 // OSC 1
 // ----------------------------------------------------------------------------------------------------
+
+console.log("check?");
 
 var synth1 = new Tone.PolySynth().toDestination();
 synth1.volume.value = -12
@@ -60,6 +61,7 @@ synth2.set({
     }
 });
 
+let firstTime;
 firstTime = true;
 
 document.getElementById('toggleOsc2').addEventListener('change', function() {
